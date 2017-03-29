@@ -1,0 +1,66 @@
+<1>USB Mode:
+1)disconnect USB and external DC power
+2)press the buttom then connet to PC with USB,now a mass storage device available on PC
+you can put the config.ini target.bin and mac.bin(optional and the file name can change in config.ini) into mass storage,also you can get log file(e.g. log.txt,defined in config.ini).
+
+<2>Programmer Mode:
+1)DO NOT press the buttom,connet USB or external DC power.
+2)after short time self check,all LED will turn to green.if any is red,please see <6> and log file for more information.
+3)connet the chip to programmer
+4)press the buttom,the corresponding LED will turn to yellow,if the LED turn to green,the chip is programed;if LED turn to RED,it mean failure,see the log file(if enable) define in config.ini for more information.
+
+<3>config.ini
+a)[FILE_INFO]
+Version:config.ini version,DO NOT modify it
+
+b)[DEVICE_INFO]
+Device:set the soc chip model,it can be "JN5139" "JN5142" "JN5148" "JN5161" "JN5164" "JN5168" at present.
+Flash:set the soc chip flash type,it can be:
+  "Internal"
+  "External"(not implemented yet)
+
+c)[MAC_INFO]
+Mode:how to program chip's mac,it can be:
+  "NoChange" - didn't change
+  "Increase" - increase from "StartAddr",step 1(not implemented yet)
+  "Decrease" - decrease from "StartAddr",step 1(not implemented yet)
+  "FromFile" - read from "FileName",1 line per chip(not implemented yet)
+ErrorMode:if programming failure,hou to deal with current MAC;it can be:
+  "Continue" - reuse to next chip(not implemented yet)
+  "Abandon" - drop it(not implemented yet)
+StartAddr: the start mac while "Mode" set to "Increase" or "Decrease"
+FileName: the mac file while "Mode" set to "FileName"
+
+[OTP_INFO]
+OTPMask:mask which OTP option will program.bit0-AES,bit1..3-UserData0..2
+AES:the value program into AES OTP(128 bit HEX)
+UserData0:the value program into UserData0 OTP(128 bit HEX)
+UserData1:the value program into UserData0 OTP(128 bit HEX)
+UserData2:the value program into UserData0 OTP(128 bit HEX)
+
+[LOG_INFO]
+LogLevel:the log level,it can be "None" "Error" "Warnning" "Message"
+if set to "Warnning",the "Error" and "Warnning" will save in log file
+if set to "Message",the "Message" "Error" and "Warnning" will save in log file
+FileName:the file name of log file
+FileSize:max size(byte) of log file.the oldest log will be covered
+
+[OTHER_INFO]
+BaudRate:the baud rate while programming
+ChannelMask:mask which channel can be use;bit0..3-channel1..4
+Verification:read out the date to confirm the data is correct(CRC check).it can be "0" or "1"
+PowerOut:set power output from programmer,it can be "0" or "1"
+ClockOut:set clock output from programmer,it can be "0" or "1"
+IOMode:set RST pin and SIG pin gpio mode,it can be "OD" or "PP"
+
+<4>mac file
+one mac per line,64bit hex format
+
+<5>log file
+none
+
+<6>self check
+LED1-VCC not match(not implemented yet)
+LED2-file system error
+LED3-config.ini do NOT exist
+LED4-target.bin do NOT exist

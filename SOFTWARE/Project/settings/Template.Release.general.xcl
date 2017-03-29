@@ -1,0 +1,13 @@
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2\arm\bin\armproc.dll" 
+
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2\arm\bin\armsim2.dll" 
+
+"C:\Users\Administrator\Desktop\JN51XX-OFFLINE-PROGRAMER\SOFTWARE\Users\BSP\STM32F103ZE_FLASH.icf" 
+
+--plugin "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2\arm\bin\armbat.dll" 
+
+--device_macro "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2\arm\config\debugger\ST\STM32F1xx_XL.dmac" 
+
+
+
+

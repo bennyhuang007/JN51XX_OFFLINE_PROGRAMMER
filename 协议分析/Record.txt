@@ -1,0 +1,93 @@
+#1
+	JN51xxProgrammer.exe -V 2 -I 38400 -P 38400 -s COM7 --deviceconfig
+	COM7：Detected JN5168 with MAC address 00:15:8D:00:00:57:61:8C
+	COM7: Device configuration: JTAG_ENABLE,VBO_200,CRP_LEVEL0,EXTERNAL_FLASH_NOT_ENCRYPTED,EXTERNAL_FLASH_LOAD_ENABLE
+	--------------------------------------
+	T	20 32 30						// Get Chip ID
+	R	07 33 00 10 00 86 86 24			// Chip ID [10008686]
+	T	08 1F 62 00 00 00 04 00 71		// Ram Read Addr[00000062] Len[0004]
+	R	07 20 00 00 08 00 06 29			// Ram Data[00 08 00 06]
+	T	08 1F 00 15 00 01 04 00 07		// Ram Read Addr[01001500] Len[0004]
+	R	07 20 00 FF FF FF F7 2F			// Ram Data[FF FF FF F7]
+	
+	T	07 2C 04 00 00 00 00 2F			// Select Flash Type[04/00/05/03/01/02]
+	R	03 2D 00 2E
+	T	02 25 27						// ReadID
+	R	05 26 00 FF FF 23
+	T	07 2C 00 00 00 00 00 2B
+	R	03 2D 00 2E
+	T	02 25 27
+	R	05 26 00 FF FF 23
+	T	07 2C 05 00 00 00 00 2E
+	R	03 2D 00 2E
+	T	02 25 27
+	R	05 26 00 FF FF 23
+	T	07 2C 03 00 00 00 00 28
+	R	03 2D 00 2E
+	T	02 25 27
+	R	05 26 00 FF FF 23
+	T	07 2C 01 00 00 00 00 2A
+	R	03 2D 00 2E
+	T	02 25 27
+	R	05 26 00 FF FF 23
+	T	07 2C 02 00 00 00 00 29
+	R	03 2D 00 2E
+	T	02 25 27
+	R	05 26 00 FF FF 23
+	
+	T	08 1F 70 15 00 01 08 00 7B										// Ram Read Addr[01001570] Len[0008]
+	R	0B 20 00 FF FF FF FF FF FF FF FF 2B								// Ram Data[FF FF FF FF FF FF FF FF]
+	T	08 1F 80 15 00 01 08 00 8B										// Ram Read Addr[01001580] Len[0008]
+	R	0B 20 00 00 15 8D 00 00 57 61 8C 09								// Ram Data[00 15 8D 00 00 57 61 8C]
+	T	08 1F 10 15 00 01 10 00 03										// Ram Read Addr[01001510] Len[0010]
+	R	13 20 00 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF 33		// Ram Data[FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF]
+	T	07 2C 08 00 00 00 00 23											// Select Flash Type[Internal Flash]
+	R	03 2D 00 2E
+	
+#2
+	JN51xxProgrammer.exe -V 2 -I 38400 -P 38400 -s COM7 --dumpeeprom D:\eeprom.bin
+#3
+	JN51xxProgrammer.exe -V 2 -I 38400 -P 38400 -s COM7 --ereaseeeprom=full
+#4
+	JN51xxProgrammer.exe -V 2 -I 38400 -P 38400 -s COM7 --loadeeprom D:\eeprom.bin
+	--------------------------------------
+	...Same as #1...
+	...Copy a application to ram,and then run the application to read/erease/write the eeprom...
+	
+#5
+	JN51xxProgrammer.exe -V 2 -I 38400 -P 38400 -s COM7 -F D:\flash.bin
+	
+#6
+	JN51xxProgrammer.exe -V 2 -I 38400 -P 38400 -s COM7 -f D:\flash.bin
+	
+#7
+	JN51xxProgrammer.exe -V 2 -I 38400 -P 38400 -s COM7 --ereaseeeprom=full
+	
+#8/#9
+	JN51xxProgrammer.exe -V 2 -I 38400 -P 38400 -s COM7 -m 0x00158D000057618C
+	Success/Failure
+
+#10/#11
+	JN51xxProgrammer.exe -V 2 -I 38400 -P 38400 -s COM7 -k 0x0123456789ABCDEF0123456789ABCDEF
+	Success/Failure
+	
+#12/13(u 0)
+#14/15(u 1)
+#16/17(u 2)
+	JN51xxProgrammer.exe -V 2 -I 38400 -P 38400 -s COM7 -u 0=0x0123456789ABCDEF0123456789ABCDEF
+	Success/Failure
+	
+#17
+	JN51xxProgrammer.exe -s COM7 --deviceconfig=VBO_195,CRP_LEVEL2
+#18
+	JN51xxProgrammer.exe -s COM24 --mac 0x0123456789ABCDEF --deviceconfig=VBO_195,CRP_LEVEL2
+	
+#20 JN51xxProgrammer.exe -V 2 -I 38400 -P 38400 -s COM7 --deviceconfig=VBO_195,CRP_LEVEL2	
+
+
+#21
+	JN51xxProgrammer.exe -V 2 -I 38400 -P 38400 -s COM7 --deviceconfig
+	COM7: Detected JN5161 with MAC address 00:15:8D:00:00:35:94:C9
+	COM7: Device configuration: JTAG_ENABLE,VBO_200,CRP_LEVEL0,EXTERNAL_FLASH_NOT_ENCRYPTED,EXTERNAL_FLASH_LOAD_ENABLE
+	
+	
